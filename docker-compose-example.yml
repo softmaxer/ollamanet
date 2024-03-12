@@ -1,0 +1,15 @@
+version: '3'
+services:
+  ollama-server-1:
+    image: ollama/ollama:latest
+    ports:
+      - "11435:11434"
+    volumes:
+      - ~/ollama-server-1:/root/.ollama 
+
+  ollama-server-2:
+    image: ollama/ollama:latest
+    ports:
+      - "11436:11434"
+    volumes:
+      - ~/ollama-server-2:/root/.ollama
