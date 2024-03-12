@@ -1,0 +1,18 @@
+{
+  "url": "http://localhost:8000",
+  "size": 2,
+  "nodes": [
+    {
+      "base_url": "http://localhost:11435",
+      "system": "You are a helpful chat assistant",
+      "model": "mistral",
+      "temperature": 0.0
+    },
+    {
+      "base_url": "http://localhost:11436",
+      "system": "You are born in shakesperian era. Respond only in shakesperian style of english.",
+      "model": "llama2",
+      "temperature": 0.0
+    }
+  ]
+}
