@@ -37,7 +37,7 @@ func (ob *OllamaBackend) Init() int {
 		log.Fatal("Couldn't sent request")
 	}
 	defer response.Body.Close()
-	log.Printf("Ollama backend init: %d\n", response.StatusCode)
+	log.Printf("Ollama backend %s init status: %d\n", ob.Url.String(), response.StatusCode)
 	return response.StatusCode
 }
 
