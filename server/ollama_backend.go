@@ -52,3 +52,20 @@ func (ob *OllamaBackend) SetAlive(alive bool) {
 func (ob *OllamaBackend) Serve(rw http.ResponseWriter, req *http.Request) {
 	ob.Proxy.ServeHTTP(rw, req)
 }
+
+func (ob *OllamaBackend) Address() string {
+	return ob.Url.String()
+}
+
+func (ob *OllamaBackend) CheckHealth() bool {
+	response, err := http.Head(ob.Url.String())
+	if err != nil {
+		ob.SetAlive(false)
+		return false
+	}
+	if response.StatusCode != http.StatusOK {
+		ob.SetAlive(false)
+		return false
+	}
+	return true
+}

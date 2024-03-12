@@ -13,8 +13,10 @@ import (
 func main() {
 	var configFile string
 	var logFile string
-	flag.StringVar(&configFile, "-config", "configuration.json", "A configuration file for the Ollama network")
-	flag.StringVar(&logFile, "-log", "network_log", "File to use for logging Ollama network")
+	var healthCheckInterval int
+	flag.StringVar(&configFile, "config", "configuration.json", "A configuration file for the Ollama network")
+	flag.StringVar(&logFile, "log", "network_log", "File to use for logging Ollama network")
+	flag.IntVar(&healthCheckInterval, "int", 5, "The interval (in minutes) to use for health check")
 	jsonConfig, err := os.ReadFile(configFile)
 	if err != nil {
 		log.Fatal("Error reading configuration file: ", err.Error())
@@ -32,5 +34,6 @@ func main() {
 	}
 	net := network.Init(&netConfig)
 	http.HandleFunc("/", net.Redirect)
+	go network.HealthCheck(&healthCheckInterval, &net)
 	http.ListenAndServe(":8000", nil)
 }
